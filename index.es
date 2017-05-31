@@ -95,7 +95,7 @@ export const reactClass = connect(
       for(var i=0;i<list.length;i++){
         var name = list[i].api_enemy_name;
         if(n2q[name]){
-          comment = comment + name + '想与您进行交易：'+n2q[name]+'\t\r\n';
+          comment = comment + name + '想与您进行交易,备注信息：'+n2q[name]+'\t\r\n';
         }
       }
       if(comment!=''){
