@@ -115,6 +115,13 @@ export const reactClass = connect(
         var name = va[0];
         var comment = va[1];
         n2q[name]=comment;
+      }else{
+        va = text.split('|');
+        if(va.length==2){
+          var name = va[0];
+          var comment = va[1];
+          n2q[name]=comment;
+        }
       }
     }
     this.setState({n2q:n2q},()=>{
@@ -155,7 +162,7 @@ export const reactClass = connect(
               <FormControl onChange={this.handleTextareaChange}
                            componentClass="textarea"
                            value={this.state.textvalue}
-                           placeholder="输入格式：提督名+TAB+备注,每行一名提督"
+                           placeholder="输入格式：提督名+(TAB或|)+备注,每行一名提督"
                            style={{height: '200px'}}>
 
               </FormControl>
