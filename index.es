@@ -162,7 +162,7 @@ export const reactClass = connect(
               <FormControl onChange={this.handleTextareaChange}
                            componentClass="textarea"
                            value={this.state.textvalue}
-                           placeholder="输入格式：提督名+(TAB或|)+备注,每行一名提督"
+                           placeholder="输入格式：提督名+(TAB或|)+备注,每行一名提督,输入完成后点提交才能生效"
                            style={{height: '200px'}}>
 
               </FormControl>
