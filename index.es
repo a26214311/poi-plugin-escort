@@ -4,7 +4,7 @@ import {createSelector} from 'reselect'
 
 import {store} from 'views/create-store'
 import {join} from 'path'
-import {Button,FormGroup,ControlLabel,FormControl,Row,Col} from 'react-bootstrap'
+import {Button,FormGroup,ControlLabel,FormControl,Row,Col,OverlayTrigger,Tooltip} from 'react-bootstrap'
 
 
 import {extensionSelectorFactory} from 'views/utils/selectors'
@@ -56,12 +56,7 @@ export const reactClass = connect(
         let datastr = fs.readFileSync(savedpath, 'utf-8');
         let data = eval("(" + datastr + ")");
         data.need_load = false;
-        var n2q = data.n2q;
-        var text="";
-        for(var p in n2q){
-          text = text + p + "\t" + n2q[p] + "\r\n";
-        }
-        data.textvalue=text;
+        data.textvalue="";
         this.setState(data,() => {
 
         });
@@ -124,7 +119,7 @@ export const reactClass = connect(
         }
       }
     }
-    this.setState({n2q:n2q},()=>{
+    this.setState({n2q:n2q,textvalue:""},()=>{
       this.savelist();
     });
   };
@@ -134,6 +129,15 @@ export const reactClass = connect(
     e.stopPropagation();
     var value = e.currentTarget.value;
     this.setState({textvalue:value});
+  }
+
+  removeescort(value){
+    console.log(value);
+    var n2q = this.state.n2q;
+    delete(n2q[value]);
+    this.setState({n2q:n2q},()=>{
+      this.savelist();
+    });
   }
 
 
@@ -152,27 +156,48 @@ export const reactClass = connect(
   }
 
   render_D() {
-
+    const {horizontal} = this.props;
+    const colSm = (horizontal == 'horizontal') ? 6 : 4,
+      colMd = (horizontal == 'horizontal') ? 6 : 2;
+    var users = Object.keys(this.state.n2q);
     return (
-      <div>
+      <div id="escort" className="escort">
+        <link rel="stylesheet" href={join(__dirname, 'escort.css')}/>
         <Row>
-          <Col xs={1}></Col>
           <Col xs={10}>
             <FormGroup controlId="formControlsTextarea">
               <FormControl onChange={this.handleTextareaChange}
                            componentClass="textarea"
                            value={this.state.textvalue}
-                           placeholder="输入格式：提督名+(TAB或|)+备注,每行一名提督,输入完成后点提交才能生效"
+                           placeholder="在此输入提督名列表，点提交后生效。输入格式：提督名+(TAB或|)+备注,每行一名提督,输入完成后点提交才能生效"
                            style={{height: '200px'}}>
 
               </FormControl>
               <Button onClick={this.parseText}>提交</Button>
             </FormGroup>
           </Col>
-          <Col xs={1}></Col>
         </Row>
         <Row>
-
+          {
+            users.map((e) => {
+              return(
+                <Col xs={6} sm={colSm} md={colMd}>
+                  <div className="ship-item btn-default" >
+                    <OverlayTrigger placement="bottom" overlay={
+                      <Tooltip>
+                        <div>备注信息： {this.state.n2q[e]}</div>
+                      </Tooltip>
+                    }>
+                      <span className="ship-name">
+                        {e}
+                      </span>
+                    </OverlayTrigger>
+                    <span value ={e} onClick={() => {this.removeescort(e)}} className="close-btn"> </span>
+                  </div>
+                </Col>
+              )
+            })
+          }
         </Row>
       </div>
     )
