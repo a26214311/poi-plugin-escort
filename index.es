@@ -109,13 +109,18 @@ export const reactClass = connect(
       if(va.length==2){
         var name = va[0];
         var comment = va[1];
-        n2q[name]=comment;
+        if(name!=""){
+          n2q[name]=comment;
+        }
+
       }else{
         va = text.split('|');
         if(va.length==2){
           var name = va[0];
           var comment = va[1];
-          n2q[name]=comment;
+          if(name!=""){
+            n2q[name]=comment;
+          }
         }
       }
     }
