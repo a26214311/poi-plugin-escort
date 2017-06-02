@@ -157,8 +157,8 @@ export const reactClass = connect(
 
   render_D() {
     const {horizontal} = this.props;
-    const colSm = (horizontal == 'horizontal') ? 6 : 4,
-      colMd = (horizontal == 'horizontal') ? 6 : 2;
+    const colSm = (horizontal == 'horizontal') ? 4 : 3,
+      colMd = (horizontal == 'horizontal') ? 4 : 2;
     var users = Object.keys(this.state.n2q);
     return (
       <div id="escort" className="escort">
@@ -181,9 +181,9 @@ export const reactClass = connect(
           {
             users.map((e) => {
               return(
-                <Col xs={6} sm={colSm} md={colMd}>
+                <Col xs={4} sm={colSm} md={colMd}>
                   <div className="ship-item btn-default" >
-                    <OverlayTrigger placement="bottom" overlay={
+                    <OverlayTrigger placement="top" overlay={
                       <Tooltip>
                         <div>备注信息： {this.state.n2q[e]}</div>
                       </Tooltip>
