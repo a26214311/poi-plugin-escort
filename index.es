@@ -35,13 +35,13 @@ export const reactClass = connect(
       console.log(111111);
       console.log(data);
       let savepath = join(window.APPDATA_PATH, 'escort', 'escort.json');
-      fs.writeFileSync(savepath, JSON.stringify(data));
+      fs.writeFileSync(savepath, JSON.stringify(data), function(){});
     } catch (e) {
-      fs.mkdir(join(window.APPDATA_PATH, 'escort'));
+      fs.mkdir(join(window.APPDATA_PATH, 'escort'), function(){});
       try {
         let data = this.loadlist();
         let savepath = join(window.APPDATA_PATH, 'escort', 'escort.json');
-        fs.writeFileSync(savepath, JSON.stringify(data));
+        fs.writeFileSync(savepath, JSON.stringify(data), function(){});
       } catch (e2) {
         console.log(e2);
       }
@@ -53,7 +53,7 @@ export const reactClass = connect(
     if (needload) {
       try {
         let savedpath = join(window.APPDATA_PATH, 'escort', 'escort.json');
-        let datastr = fs.readFileSync(savedpath, 'utf-8');
+        let datastr = fs.readFileSync(savedpath, 'utf-8', function(){});
         let data = eval("(" + datastr + ")");
         data.need_load = false;
         data.textvalue="";
@@ -62,7 +62,7 @@ export const reactClass = connect(
         });
         return data;
       } catch (e) {
-        fs.mkdir(join(window.APPDATA_PATH, 'escort'));
+        fs.mkdir(join(window.APPDATA_PATH, 'escort'), function(){});
         return {};
       }
     } else {
