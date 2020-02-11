@@ -37,7 +37,7 @@ export const reactClass = connect(
       let savepath = join(window.APPDATA_PATH, 'escort', 'escort.json');
       fs.writeFileSync(savepath, JSON.stringify(data));
     } catch (e) {
-      fs.mkdir(join(window.APPDATA_PATH, 'escort'));
+      fs.mkdirSync(join(window.APPDATA_PATH, 'escort'));
       try {
         let data = this.loadlist();
         let savepath = join(window.APPDATA_PATH, 'escort', 'escort.json');
@@ -62,7 +62,7 @@ export const reactClass = connect(
         });
         return data;
       } catch (e) {
-        fs.mkdir(join(window.APPDATA_PATH, 'escort'));
+        fs.mkdirSync(join(window.APPDATA_PATH, 'escort'));
         return {};
       }
     } else {
